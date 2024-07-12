@@ -36,6 +36,7 @@ export const getPost = (id: string) => {
       .then((response) => {
         console.log(response.data);
         console.log(response.data.author);
+        return response.data;
       })
       .catch((error) => {
         console.log(error);
