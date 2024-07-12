@@ -1,12 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import { getPostList } from '@/utils/fetchData';
 import { Post } from '@/types/Post';
 import { POSTS_PER_PAGE } from '@/utils/constants';
+import { useInView } from 'react-intersection-observer';
 
-import PostItem from './Post';
+import PostItem from './PostCard';
 
 type PostListProps = {
   initialPosts: Post[];
@@ -17,6 +18,7 @@ export default function PostList({ initialPosts, initialCursor }: PostListProps)
   const [cursor, setCursor] = useState(initialCursor);
   const [posts, setPosts] = useState<Post[]>(initialPosts);
   const [hasMoreData, setHasMoreData] = useState(true);
+  const [scrollTrigger, isInView] = useInView();
 
   const loadMorePosts = async () => {
     if (hasMoreData) {
@@ -32,6 +34,37 @@ export default function PostList({ initialPosts, initialCursor }: PostListProps)
     }
   };
 
+  useEffect(() => {
+    if (isInView && hasMoreData) {
+      loadMorePosts();
+    }
+  }, [isInView, hasMoreData]);
+
+  // useEffect(() => {
+  //   if (typeof window === 'undefined' || !window.IntersectionObserver) {
+  //     return;
+  //   }
+
+  //   const observer = new IntersectionObserver(
+  //     (entries) => {
+  //       if (entries[0].isIntersecting) {
+  //         loadMorePosts();
+  //       }
+  //     },
+  //     { threshold: 0.5 }
+  //   );
+
+  //   if (scrollTrigger.current) {
+  //     observer.observe(scrollTrigger.current);
+  //   }
+
+  //   return () => {
+  //     if (scrollTrigger.current) {
+  //       observer.unobserve(scrollTrigger.current);
+  //     }
+  //   };
+  // }, [hasMoreData]);
+
   return (
     <>
       <div className='post-list [counter-reset:post-index]'>
@@ -39,15 +72,8 @@ export default function PostList({ initialPosts, initialCursor }: PostListProps)
           <PostItem key={post.id} post={post} />
         ))}
       </div>
-      <div className='text-center mt-5'>
-        {hasMoreData ? (
-          <button
-            className='px-4 py-3 bg-slate-500 hover:bg-slate-600 text-slate-50 rounded-md'
-            onClick={loadMorePosts}
-          >
-            Load More Posts
-          </button>
-        ) : (
+      <div className='text-center text-slate-600 mt-5'>
+        {(hasMoreData && <div ref={scrollTrigger}>Loading...</div>) || (
           <p className='text-slate-600'>No more posts to load</p>
         )}
       </div>

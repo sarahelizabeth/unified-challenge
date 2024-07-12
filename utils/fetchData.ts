@@ -13,11 +13,9 @@ export const getPostList = async (limit: number, cursor: string) => {
         },
       })
       .then((response) => {
-        console.log(response.data)
         return response.data;
       })
       .catch((error) => {
-        console.log(error)
         return error;
       });
     return response;
