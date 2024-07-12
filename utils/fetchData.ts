@@ -25,18 +25,23 @@ export const getPostList = async (limit: number, cursor: string) => {
 };
 
 export const getPost = (id: string) => {
-  axios
-    .get(`${API_URL}/posts/${id}`, {
-      headers: {
-        Authorization: `Bearer ${TOKEN_STRING}`,
-        'Content-Type': 'application/json',
-      },
-    })
-    .then((response) => {
-      console.log(response.data);
-      console.log(response.data.author);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  try {
+    const response = axios
+      .get(`${API_URL}/posts/${id}`, {
+        headers: {
+          Authorization: `Bearer ${TOKEN_STRING}`,
+          'Content-Type': 'application/json',
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        console.log(response.data.author);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    return response;
+  } catch {
+    throw new Error('error post');
+  }
 };
