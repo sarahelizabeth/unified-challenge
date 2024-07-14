@@ -9,10 +9,8 @@ export default async function Home() {
   return (
     <>
       <div className='max-w-3xl mx-auto p-5'>
-        <h1 className='text-center text-2xl mb-2'>Loading posts asynchronously</h1>
-
-        <h3 className='text-center mb-5 text-slate-600'>Just on a button click</h3>
-
+        <h1 className='text-center text-2xl mb-2'>Unified Coding Challenge</h1>
+        <h3 className='text-center mb-5 text-slate-600'>Asynchronously Loading Post Feed</h3>
         <PostList initialPosts={initialPosts} initialCursor={initialCursor} />
       </div>
     </>
