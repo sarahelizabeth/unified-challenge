@@ -3,20 +3,20 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 import { getPostList } from '@/utils/fetchData';
-import { Post } from '@/types/Post';
+import { PostObj } from '@/types/Post';
 import { POSTS_PER_PAGE } from '@/utils/constants';
 import { useInView } from 'react-intersection-observer';
 
-import PostItem from './PostCard';
+import Post from './Post';
 
 type PostListProps = {
-  initialPosts: Post[];
+  initialPosts: PostObj[];
   initialCursor: string;
 };
 
 export default function PostList({ initialPosts, initialCursor }: PostListProps) {
   const [cursor, setCursor] = useState(initialCursor);
-  const [posts, setPosts] = useState<Post[]>(initialPosts);
+  const [posts, setPosts] = useState<PostObj[]>(initialPosts);
   const [hasMoreData, setHasMoreData] = useState(true);
   const [scrollTrigger, isInView] = useInView();
 
@@ -69,7 +69,7 @@ export default function PostList({ initialPosts, initialCursor }: PostListProps)
     <>
       <div className='post-list [counter-reset:post-index]'>
         {posts?.map((post) => (
-          <PostItem key={post.id} post={post} />
+          <Post key={post.id} post={post} />
         ))}
       </div>
       <div className='text-center text-slate-600 mt-5'>

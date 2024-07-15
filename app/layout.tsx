@@ -16,7 +16,6 @@ export default function RootLayout({
     <html lang='en'>
       <body className='bg-slate-100 text-gray-900'>
         <div className='container mx-auto relative py-5'>
-          {/* <Nav /> */}
           {children}
         </div>
       </body>

@@ -1,15 +1,16 @@
 import Image from 'next/image';
-import { Author } from '@/types/Post';
+import { AuthorObj } from '@/types/Post';
 
 type AuthorProps = {
-  author: Author;
+  author: AuthorObj;
 }
 
-export default async function AuthorPage({ author }: AuthorProps) {
+export default async function Author({ author }: AuthorProps) {
   const url = author.profile_pic
     ? author.profile_pic?.uri
     : 'https://gravatar.com/avatar/1ea2ab024bbf4516fee051b29cb7bd3b?s=400&d=identicon&r=g';
-  return (
+  
+    return (
     <div className='flex items-center'>
       <Image
         src={url}

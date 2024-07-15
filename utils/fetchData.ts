@@ -34,13 +34,10 @@ export const getPost = (id: string) => {
         },
       })
       .then((response) => {
-        console.log(response.data);
-        console.log(response.data.author);
-        console.log(response.data.attachments?.targets)
         return response.data;
       })
       .catch((error) => {
-        console.log(error);
+        return error;
       });
     return response;
   } catch {
