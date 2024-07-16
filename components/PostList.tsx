@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 import { getPostList } from '@/utils/fetchData';
+import { getAuth } from '@/utils/api';
 import { PostObj } from '@/types/Post';
 import { POSTS_PER_PAGE } from '@/utils/constants';
 import { useInView } from 'react-intersection-observer';
@@ -15,6 +16,8 @@ type PostListProps = {
 };
 
 export default function PostList({ initialPosts, initialCursor }: PostListProps) {
+  // const auth = getAuth();
+  // console.log('auth ', auth)
   const [cursor, setCursor] = useState(initialCursor);
   const [posts, setPosts] = useState<PostObj[]>(initialPosts);
   const [hasMoreData, setHasMoreData] = useState(true);

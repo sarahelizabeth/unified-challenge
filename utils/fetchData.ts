@@ -1,7 +1,8 @@
 import axios from 'axios';
 
-// import { getAuth } from '@/utils/api';
+import { getAuth } from '@/utils/api';
 import { API_URL, TOKEN_STRING } from './constants';
+
 
 export const getPostList = async (limit: number, cursor: string) => {
   try {
@@ -25,6 +26,8 @@ export const getPostList = async (limit: number, cursor: string) => {
 };
 
 export const getPost = (id: string) => {
+  // THIS IS WHERE I WANT TO GET THE TOKEN
+  const token = getAuth();
   try {
     const response = axios
       .get(`${API_URL}/posts/${id}`, {
